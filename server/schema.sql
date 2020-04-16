@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS messages;
 
 CREATE TABLE messages (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  message_text VARCHAR(255) NOT NULL,
+  text VARCHAR(255) NOT NULL,
   id_rooms INT NOT NULL,
   id_users INT NOT NULL
 );
@@ -38,7 +38,7 @@ DROP TABLE IF EXISTS rooms;
 
 CREATE TABLE rooms (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  roomName VARCHAR(25) NOT NULL
+  roomname VARCHAR(25) NOT NULL
 );
 
 -- ---
