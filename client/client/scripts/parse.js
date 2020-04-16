@@ -1,6 +1,6 @@
 var Parse = {
 
-  server: `http://127.0.0.1/chatterbox/classes/messages`,
+  server: 'http://127.0.0.1/chatterbox/classes/messages',
 
   create: function(message, successCB, errorCB = null) {
 
