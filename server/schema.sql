@@ -21,12 +21,12 @@ USE chat;
 -- ALTER TABLE Persons
 -- ADD CONSTRAINT UC_Person UNIQUE (ID,LastName);
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS users;
 
-CREATE TABLE `users` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(20) NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE users (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  username VARCHAR(20) DEFAULT '' NOT NULL,
+  PRIMARY KEY (id)
 );
 
 -- ---
@@ -34,14 +34,14 @@ CREATE TABLE `users` (
 --
 -- ---
 
-DROP TABLE IF EXISTS `messages`;
+DROP TABLE IF EXISTS messages;
 
-CREATE TABLE `messages` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `text` VARCHAR NOT NULL,
-  `id_rooms` INTEGER NOT NULL,
-  `id_users` INTEGER NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE messages (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  message_text VARCHAR NOT NULL,
+  id_rooms INT DEFAULT '0000',
+  id_users INT DEFAULT '0000',
+  PRIMARY KEY (id)
 );
 
 -- ---
@@ -49,38 +49,38 @@ CREATE TABLE `messages` (
 --
 -- ---
 
-DROP TABLE IF EXISTS `rooms`;
+DROP TABLE IF EXISTS rooms;
 
-CREATE TABLE `rooms` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(25) NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE rooms (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  roomName VARCHAR(25) NOT NULL,
+  PRIMARY KEY (id)
 );
 
 -- ---
 -- Foreign Keys
 -- ---
 
-ALTER TABLE `messages` ADD FOREIGN KEY (id_rooms) REFERENCES `rooms` (`id`);
-ALTER TABLE `messages` ADD FOREIGN KEY (id_users) REFERENCES `users` (`id`);
+ALTER TABLE messages ADD FOREIGN KEY (id_rooms) REFERENCES rooms (id);
+ALTER TABLE messages ADD FOREIGN KEY (id_users) REFERENCES users (id);
 
 -- ---
 -- Table Properties
 -- ---
 
--- ALTER TABLE `users` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `messages` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `rooms` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE users ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE messages ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE rooms ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ---
 -- Test Data
 -- ---
 
--- INSERT INTO `users` (`id`,`username`) VALUES
+-- INSERT INTO users (id,username) VALUES
 -- ('','');
--- INSERT INTO `messages` (`id`,`text`,`id_rooms`,`id_users`) VALUES
+-- INSERT INTO messages (id,text,`id_rooms`,`id_users`) VALUES
 -- ('','','','');
--- INSERT INTO `rooms` (`id`,`name`) VALUES
+-- INSERT INTO rooms (id,name) VALUES
 -- ('','');
 /* Create other tables and define schemas for them here! */
 
