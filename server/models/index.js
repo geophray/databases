@@ -4,22 +4,23 @@ module.exports = {
   messages: {
     get: function (callback) {
       // a function which produces all the messages
-      var queryString = 'SELECT messages.id, messages.text, rooms.roomname, users.username FROM messages LEFT OUTER JOIN users ON (messages.id_users = users.id) LEFT OUTER JOIN rooms ON (messages.id_rooms = rooms.id)';
+      var queryString = 'SELECT messages.id, messages.text, users.username, messages.roomname FROM messages LEFT OUTER JOIN users ON messages.id_users = users.id';
       db.query(queryString, (err, results) => {
         if (err) {
           callback(err);
+        } else {
+          callback(null, results);
         }
-        callback(results);
       });
     },
     post: function (params, callback) {
-      var queryString = 'INSERT INTO messages (text, userid, roomname) VALUES (?, (SELECT id FROM users WHERE username = ? limit 1), (SELECT id FROM rooms WHERE roomname = ? limit 1))';
+      var queryString = 'INSERT INTO messages (text, id_users, roomname) VALUES (?, (SELECT id FROM users WHERE username = ? limit 1), ?)';
 
       db.query(queryString, params, (err, results) => {
         if (err) {
           callback(err);
         }
-        callback(result);
+        callback(null, results);
       });
     } // a function which can be used to insert a message into the database
   },
@@ -33,7 +34,7 @@ module.exports = {
         if (err) {
           callback(err);
         }
-        callback(results);
+        callback(null, results);
       });
     },
     post: function (params, callback) {
@@ -44,33 +45,34 @@ module.exports = {
         if (err) {
           callback(err);
         }
-        callback(result);
-      });
-    }
-  },
-  rooms: {
-    // Ditto as above.
-    get: function (callback) {
-      // get all rooms
-      var queryString = 'SELECT * FROM rooms';
-      db.query(queryString, (err, results) => {
-        if (err) {
-          callback(err);
-        }
-        callback(results);
-      });
-    },
-    post: function (params, callback) {
-      //create room
-      var queryString = 'INSERT INTO rooms (roomname) VALUES (?)';
-
-      db.query(queryString, params, (err, results) => {
-        if (err) {
-          callback(err);
-        }
-        callback(result);
+        callback(null, results);
       });
     }
   }
+
+  // rooms: {
+  //   // Ditto as above.
+  //   get: function (callback) {
+  //     // get all rooms
+  //     var queryString = 'SELECT * FROM rooms';
+  //     db.query(queryString, (err, results) => {
+  //       if (err) {
+  //         callback(err);
+  //       }
+  //       callback(results);
+  //     });
+  //   },
+  //   post: function (params, callback) {
+  //     //create room
+  //     var queryString = 'INSERT INTO rooms (roomname) VALUES (?)';
+
+  //     db.query(queryString, params, (err, results) => {
+  //       if (err) {
+  //         callback(err);
+  //       }
+  //       callback(results);
+  //     });
+  //   }
+  // }
 };
 

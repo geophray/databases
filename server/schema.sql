@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS messages;
 CREATE TABLE messages (
   id INT AUTO_INCREMENT PRIMARY KEY,
   text VARCHAR(255) NOT NULL,
-  id_rooms INT NOT NULL,
+  roomname VARCHAR(25) NOT NULL,
   id_users INT NOT NULL
 );
 
@@ -36,16 +36,16 @@ CREATE TABLE messages (
 
 DROP TABLE IF EXISTS rooms;
 
-CREATE TABLE rooms (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  roomname VARCHAR(25) UNIQUE NOT NULL
-);
+-- CREATE TABLE rooms (
+--   id INT AUTO_INCREMENT PRIMARY KEY,
+--   roomname VARCHAR(25) UNIQUE NOT NULL
+-- );
 
 -- ---
 -- Foreign Keys
 -- ---
 
-ALTER TABLE messages ADD FOREIGN KEY (id_rooms) REFERENCES rooms (id);
+-- ALTER TABLE messages ADD FOREIGN KEY (id_rooms) REFERENCES rooms (id);
 ALTER TABLE messages ADD FOREIGN KEY (id_users) REFERENCES users (id);
 
 /*  Execute this file from the command line by typing:
